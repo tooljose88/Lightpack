@@ -88,6 +88,7 @@ signals:
 	void updateApiKey(QString key);
 	void updateApiDeviceNumberOfLeds(int value);
 	void reloadPlugins();
+	void SetEnabledPlugins(bool op);
 
 public slots:
 	void ledDeviceOpenSuccess(bool isSuccess);

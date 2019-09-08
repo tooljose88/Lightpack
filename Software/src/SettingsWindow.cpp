@@ -936,7 +936,14 @@ void SettingsWindow::processMessage(const QString &message)
 	else if (message.startsWith("set-profile ")) {
 		QString profile = message.mid(12);
 		profileSwitch(profile);
-	} else if (message == "quitForWizard") {
+	}
+	else if (message.startsWith("load-plugin")) {
+        SetEnabledPlugins(true);
+	}
+	else if (message.startsWith("unload-plugin")) {
+        SetEnabledPlugins(false);
+	}
+	else if (message == "quitForWizard") {
 		qWarning() << "Wizard was started, quitting!";
 		LightpackApplication::quit();
 	} else if (m_trayIcon != NULL) { // "alreadyRunning"

@@ -5,7 +5,9 @@ LightpackCommandLineParser::LightpackCommandLineParser()
 	, m_wizardOption("wizard", "run settings wizard first")
 	, m_backlightOffOption("off", "send 'off leds' command to the device or running instance")
 	, m_backlightOnOption("on", "send 'on leds' command to running instance, if any")
-	, m_debugLevelOption("debug", "verbosity level of debug output (high, mid, low, zero)", "debug")
+    , m_pluginLoadOption("load", "Load a plugin")
+    , m_pluginUnloadOption("unload", "Unload a plugin")
+    , m_debugLevelOption("debug", "verbosity level of debug output (high, mid, low, zero)", "debug")
 	, m_debugLevelHighOption("debug-high", "sets application debug level to high.")
 	, m_debugLevelMidOption("debug-mid", "sets application debug level to mid.")
 	, m_debugLevelLowOption("debug-low", "sets application debug level to low.")
@@ -19,6 +21,8 @@ LightpackCommandLineParser::LightpackCommandLineParser()
 	m_parser.addOption(m_wizardOption);
 	m_parser.addOption(m_backlightOffOption);
 	m_parser.addOption(m_backlightOnOption);
+    m_parser.addOption(m_pluginLoadOption);
+    m_parser.addOption(m_pluginUnloadOption);
 	m_parser.addOption(m_debugLevelOption);
 	m_parser.addOption(m_debugLevelHighOption);
 	m_parser.addOption(m_debugLevelMidOption);
@@ -69,6 +73,15 @@ bool LightpackCommandLineParser::isSetDebuglevel() const
 bool LightpackCommandLineParser::isSetProfile() const
 {
 	return m_parser.isSet(m_optionSetProfile);
+}
+
+bool LightpackCommandLineParser::isSetLoad() const
+{
+	return m_parser.isSet(m_pluginLoadOption);
+}
+bool LightpackCommandLineParser::isSetUnload() const
+{
+	return m_parser.isSet(m_pluginUnloadOption);
 }
 
 Debug::DebugLevels LightpackCommandLineParser::debugLevel() const

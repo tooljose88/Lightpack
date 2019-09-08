@@ -27,6 +27,8 @@ signals:
 public slots:
 	void reloadPlugins();
 	void StartPlugins();
+	void SetEnabledPlugins(bool op);
+	void SetEnabledPluginName(QString name, bool op);
 	void StopPlugins();
 
 private slots:

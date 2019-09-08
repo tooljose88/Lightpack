@@ -87,6 +87,9 @@ public:
 	static const char * CmdGetProfiles;
 	static const char * CmdResultProfiles;
 
+	static const char * CmdLoadPlugin;
+	static const char * CmdUnloadPlugin;
+
 	static const char * CmdGetProfile;
 	static const char * CmdResultProfile;
 
@@ -206,6 +209,7 @@ signals:
 	void errorOnStartListening(QString errorMessage);
 	void clearColorBuffers();
 	void updateApiDeviceNumberOfLeds(int value);
+	void SetEnabledPlugins(bool op);
 
 public slots:
 	void apiServerSettingsChanged();

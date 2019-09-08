@@ -479,6 +479,19 @@ void LightpackApplication::processCommandLineArguments()
 		::exit(0);
 	}
 
+	if (parser.isSetLoad()) {
+		if (isRunning())
+        	sendMessage("load-plugin");
+		DEBUG_LOW_LEVEL << "load-plugin";
+		::exit(0);
+	}
+
+	if (parser.isSetUnload()) {
+        sendMessage("unload-plugin");
+		DEBUG_LOW_LEVEL << "unload-plugin";
+		::exit(0);
+	}
+
 	if (parser.isSetDebuglevel())
 	{
 		g_debugLevel = parser.debugLevel();
@@ -687,6 +700,8 @@ void LightpackApplication::startPluginManager()
 	if (!m_noGui)
 	{
 		connect(m_settingsWindow,SIGNAL(reloadPlugins()),m_pluginManager,SLOT(reloadPlugins()));
+		connect(m_settingsWindow,SIGNAL(SetEnabledPlugins(bool)),m_pluginManager,SLOT(SetEnabledPlugins(bool)));
+		connect(m_apiServer,SIGNAL(SetEnabledPlugins(bool)),m_pluginManager,SLOT(SetEnabledPlugins(bool)));
 		connect(m_pluginManager,SIGNAL(updatePlugin(QList<Plugin*>)),m_settingsWindow,SLOT(updatePlugin(QList<Plugin*>)), Qt::QueuedConnection);
 		connect(m_pluginManager,SIGNAL(updatePlugin(QList<Plugin*>)),m_pluginInterface,SLOT(updatePlugin(QList<Plugin*>)), Qt::QueuedConnection);
 	}

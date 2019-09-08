@@ -98,6 +98,33 @@ void PluginsManager::StartPlugins()
 
 }
 
+void PluginsManager::SetEnabledPlugins(bool op)
+{
+	DEBUG_LOW_LEVEL << Q_FUNC_INFO;
+
+	for(QMap<QString, Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); ++it){
+			Plugin* p = it.value();
+			p->disconnect();
+			p->setEnabled(op);
+			connect(p, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(onPluginStateChangedHandler()));
+		}
+
+}
+
+void PluginsManager::SetEnabledPluginName(QString name, bool op)
+{
+	DEBUG_LOW_LEVEL << Q_FUNC_INFO;
+
+	for(QMap<QString, Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); ++it){
+			Plugin* p = it.value();
+			p->disconnect();
+            if(p->Name() == name)
+				p->setEnabled(op);
+			connect(p, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(onPluginStateChangedHandler()));
+		}
+
+}
+
 void PluginsManager::StopPlugins()
 {
 	DEBUG_LOW_LEVEL << Q_FUNC_INFO;
